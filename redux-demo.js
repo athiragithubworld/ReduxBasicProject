@@ -1,10 +1,19 @@
 const redux = require("redux");
 // just install @redux/toolkit -->configureStore in the place of createstore
 
-const counterReducer = (state = { counter: 3 }, action) => {
-  return {
-    counter: state.counter - 1,
-  };
+const counterReducer = (state = { counter: 0 }, action) => {
+  if (action.type === "INCREMENTBY2") {
+    return {
+      counter: state.counter + 2,
+    };
+  }
+  if (action.type === "DECREMENTBY2") {
+    return {
+      counter: state.counter - 2,
+    };
+  }
+
+  return state;
 };
 
 const store = redux.createStore(counterReducer);
@@ -23,5 +32,5 @@ store.subscribe(counterSubcribtion);
 // store.dispatch({ type: "increment" });
 
 // decreasing the value and the value is decrementing by -1
-
-store.dispatch({ type: "decrement" });
+store.dispatch({ type: "INCREMENTBY2" });
+store.dispatch({ type: "DECREMENTBY2" });
